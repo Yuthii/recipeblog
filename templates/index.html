@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+/* Add this CSS to your existing styles or in a new style block in the head of your HTML */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    .post {
+        padding: 20px;
+        margin: 20px 0;
+        background-color: #f3f3f3;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .post-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .post-date {
+        font-size: 14px;
+        color: #888;
+    }
+    
+    .post-title {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+    
+    .post-content {
+        font-size: 16px;
+        color: #333;
+        line-height: 1.6;
+    }
+    
+    .post-actions {
+        margin-top: 10px;
+    }
+    
+    .post-actions a {
+        color: #4158d0;
+        text-decoration: none;
+        margin-right: 10px;
+        font-weight: bold;
+        transition: color 0.3s ease;
+    }
+    
+    .post-actions a:hover {
+        color: #1a237e;
+    }
+</style>
+</head>
+{% block content %}
+    <h1>Recipe Blog</h1>
+    <div class="posts-container">
+        {% for post in posts %}
+            <div class='post'>
+                <div class="post-header">
+                    <p class="post-date">{{ post['created'] }}</p>
+                    <h2 class="post-title">{{ post['title'] }}</h2>
+                </div>
+                <p class="post-content">{{ post['content'] }}</p>
+                <div class="post-actions">
+                    <a href="{{ url_for('edit', id=post['id']) }}">Edit</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+>
+<body>
+    
+</body>
+</html>
+
+
+

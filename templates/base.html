@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock %} Recipe Book</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        b {
+            background-color: #c850c0;
+        }
+
+        .post {
+            padding: 20px;
+            margin: 5px;
+            background-color: #f3f3f3
+        }
+
+        nav a {
+            color: #d64161;
+            font-size: 20px;
+            margin-left: 50px;
+            text-decoration: none;
+        }
+
+        .alert {
+            padding: 20px;
+            margin: 5px;
+            color: #970020;
+            background-color: #ffd5de;
+        }
+
+        @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(-135deg, #c850c0, #4158d0);
+            clip-path: circle(25px at calc(100% - 45px) 45px);
+            transition: all 0.3s ease-in-out;
+        }
+
+        #active:checked~.wrapper {
+            clip-path: circle(75%);
+        }
+
+        .menu-btn {
+            position: absolute;
+            z-index: 2;
+            right: 20px;
+            top: 20px;
+            height: 50px;
+            width: 50px;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 50%;
+            font-size: 20px;
+            color: #fff;
+            cursor: pointer;
+            background: linear-gradient(-135deg, #c850c0, #4158d0);
+            transition: all 0.3s ease-in-out;
+        }
+
+        #active:checked~.menu-btn {
+            background: #fff;
+            color: #4158d0;
+        }
+
+        #active:checked~.menu-btn i:before {
+            content: "\f00d";
+        }
+
+        .wrapper ul {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            list-style: none;
+            text-align: center;
+        }
+
+        .wrapper ul li {
+            margin: 15px 0;
+        }
+
+        .wrapper ul li a {
+            color: none;
+            text-decoration: none;
+            font-size: 30px;
+            font-weight: 500;
+            padding: 5px 30px;
+            color: #fff;
+            position: relative;
+            line-height: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .wrapper ul li a:after {
+            position: absolute;
+            content: "";
+            background: #fff;
+            width: 100%;
+            height: 50px;
+            left: 0;
+            border-radius: 50px;
+            transform: scaleY(0);
+            z-index: -1;
+            transition: transform 0.3s ease;
+        }
+
+        .wrapper ul li a:hover:after {
+            transform: scaleY(1);
+        }
+
+        .wrapper ul li a:hover {
+            color: #4158d0;
+        }
+
+        input[type="checkbox"] {
+            display: none;
+        }
+
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            text-align: center;
+            width: 100%;
+            color: #202020;
+        }
+
+        .content .title {
+            font-size: 40px;
+            font-weight: 700;
+        }
+
+        .content p {
+            font-size: 35px;
+            font-weight: 600;
+        }
+
+        /* Footer Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            margin-top: auto; /* Push the footer to the bottom */
+        }
+
+        .footer-left,
+        .footer-center,
+        .footer-right {
+            width: 100%;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .footer-left {
+            text-align: left;
+        }
+
+        a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .social-icons {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        .social-icons li {
+            display: inline-block;
+            margin: 0 10px;
+        }
+      
+
+        .social-icons img {
+            width: 30px;
+            height: 30px;
+        }
+
+        @media (min-width: 600px) {
+            .footer-left,
+            .footer-center,
+            .footer-right {
+                width: 33.33%;
+                display: inline-block;
+                vertical-align: top;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <input type="checkbox" id="active">
+    <label for="active" class="menu-btn"><i class="fas fa-bars"></i></label>
+    <div class="wrapper">
+        <ul>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('about') }}">About</a></li>
+            <li><a href="{{ url_for('create') }}">Blog</a></li>
+            <li><a href="{{ url_for('feedback') }}">Feedback</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        {% for message in get_flashed_messages() %}
+        <div class="alert">{{ message }}</div>
+        {% endfor %}
+
+        {% block content %} {% endblock %}
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-left">
+            <p>&copy; 2023 Delicious Eats</p>
+            <div class="footer-center">
+                <a href="#">Menu</a> |
+                <a href="#">Reservations</a> |
+                <a href="#">About Us</a> |
+                <a href="#">For restaurants</a>
+            </div>
+    
+            <div class="footer-right">
+                Social links:
+                <ol class="social-icons">
+                    <li><a href="https://www.facebook.com/"><i class="fab fa-facebook"></i></a></li>
+                    <li><a href="https://twitter.com"><i class="fab fa-twitter"></i></a></li>
+                    <li><a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a></li>
+                </ol>
+            </div>
+    
+            <hr>
+            <p>By continuing past this page, you agree to our Terms of Service, Cookie Policy, Privacy Policy, and Content Policies. All trademarks are properties of their respective owners. 2008-2023 © Delicious Eats™ Ltd. All rights reserved.</p>
+        </footer>
+    </body>
+    
+    </html>
+    

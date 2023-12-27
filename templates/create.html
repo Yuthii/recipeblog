@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Add a New Post</h1>
+    <form method="post" style="width: 60%; margin: auto;">
+        <label for="title" style="display: block; margin-bottom: 10px;">Title:</label>
+        <input type="text" name="title" placeholder="Post title" style="width: 100%; padding: 8px;"><br>
+
+        <label for="content" style="display: block; margin-bottom: 10px;">Post Content:</label>
+        <textarea name="content" placeholder="Post content" rows="15" cols="60" style="width: 100%; padding: 8px;"></textarea><br>
+
+        <button type="submit" style="padding: 10px;">Submit</button>
+    </form>
+{% endblock %}
